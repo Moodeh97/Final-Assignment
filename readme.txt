@@ -1,1 +1,1 @@
-This is the beginning of the readme file that will contain information about the project
+This is the beginning of the readme file that will contain information about the project when it's finished
