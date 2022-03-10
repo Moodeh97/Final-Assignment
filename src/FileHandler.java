@@ -27,7 +27,7 @@ public class FileHandler
         }
         catch (FileNotFoundException e)
         {
-            e.printStackTrace();
+            System.out.println("File wasn't opened");
         }
     }
 
