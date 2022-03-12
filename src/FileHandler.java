@@ -44,21 +44,20 @@ public class FileHandler {
 
             while(fileScan.hasNext())
             {
-                buffer.concat(fileScan.next());
+                buffer = buffer.concat("" + fileScan.next());
             }
             System.out.println("Buffer looks like this right now:" + buffer);
 
-
-            //parsing white space as a parameter
-            Pattern ptr = Pattern.compile(" ");
+            //using newline character as a delimiter
+            Pattern ptr = Pattern.compile("\n");
 
             //storing the string elements in array after splitting
             stopWordArray = ptr.split(buffer);
 
             System.out.println("This is the array not the buffer:");
             //Check
-            for (String s : stopWordArray) {
-                System.out.println(s);
+            for (int i = 0; i < stopWordArray.length-1; i++ ) {
+                System.out.println(stopWordArray[i]+ " ");
             }
 
             //Create printwriter
