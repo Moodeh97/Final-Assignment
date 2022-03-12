@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -11,10 +12,13 @@ public class FileHandler {
     File myFile;
     String buffer;
     String[] stopWordArray;
+    String[] wordsToAdd;
+    int j;
+    boolean alreadyThere;
+
     //constructors
     public FileHandler(String Filename) {
         this.Filename = Filename;
-
     }
 
     //Methods / Behaviour
@@ -33,42 +37,61 @@ public class FileHandler {
         return myScan;
     }
 
-    //Method to write to or create a file
-    public void writeFile(String toEnter) {
+    //Method to write to the stopwords file, also checks if the words being added already exist
+    public void writeFile(String toEnter, JFrame frame1) {
         try {
-            //Open File
+            //Create buffer with nothing in it
+            String buffer = "";
+
+            //Open File and create scanner
             File Fileright = new File("stopwords.txt");
             Scanner fileScan = new Scanner(Fileright);
 
-            String buffer = "";
 
-            while(fileScan.hasNext())
-            {
-                buffer = buffer.concat("" + fileScan.next());
+            //Add list of words from .txt to the buffer string
+            while (fileScan.hasNext()) {
+                buffer = buffer.concat(" " + fileScan.next());
             }
-            System.out.println("Buffer looks like this right now:" + buffer);
 
-            //using newline character as a delimiter
-            Pattern ptr = Pattern.compile("\n");
+            //using whitespace as a delimiter
+            Pattern ptr = Pattern.compile(" ");
 
-            //storing the string elements in array after splitting
+            //storing the buffer string elements in array after splitting
             stopWordArray = ptr.split(buffer);
+            wordsToAdd = ptr.split(toEnter);
 
-            System.out.println("This is the array not the buffer:");
-            //Check
-            for (int i = 0; i < stopWordArray.length-1; i++ ) {
-                System.out.println(stopWordArray[i]+ " ");
+            //Check that the words arent already in the file
+            for (int i = 0; i < stopWordArray.length - 1; i++) {
+
+                for(int j = 0; j < wordsToAdd.length;j++) {
+                    if (stopWordArray[i].equals(wordsToAdd[j])) {
+                        alreadyThere = true;
+                        break;
+                    }
+                }
             }
 
-            //Create printwriter
-            //PrintWriter myWriter = new PrintWriter(new FileOutputStream("stopwords.txt", true));
+            if(!alreadyThere) {
+                System.out.println("We got into it");
+                //Create print writer
+                PrintWriter myWriter = new PrintWriter(new FileOutputStream("stopwords.txt", true));
 
-            //If word doesnt already exist, append it
-            //myWriter.println(toEnter);
+                //append it
+                for(int i = 0; i < wordsToAdd.length; i++)
+                {
+                    myWriter.println(wordsToAdd[i] + "");
+                }
+                //Close input stream
+                 myWriter.close();
+            }
+            else
+            {
+                System.out.println("One of the words already exists ");
+            }
+        }
 
-            //Close input stream
-            //  myWriter.close();
-        } catch (FileNotFoundException e) {//Catches the exception
+        catch (FileNotFoundException e)
+        {//Catches the exception
             System.out.println("This was the error: " + e.getMessage());
             System.out.println("File wasn't found to write into");
 

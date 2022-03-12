@@ -5,8 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.JOptionPane;
+import java.io.IOException;
 import java.util.Scanner;
-import java.util.regex.Pattern;
+import java.awt.Desktop;
 
 ////////////////////////////////
 
@@ -133,7 +134,7 @@ public class GUI extends Component implements ActionListener {
                 //If string isn't empty, send it to filehandler to add
                 if (m != null) {
                     FileHandler stopFh = new FileHandler("stopwords.txt");
-                    stopFh.writeFile(m);
+                    stopFh.writeFile(m, frame1);
                     JOptionPane.showMessageDialog(frame1, "Stop words were added!");
                 }
                 else //else tell user nothing was added
@@ -155,7 +156,6 @@ public class GUI extends Component implements ActionListener {
                 if(m != null) {
                     FileHandler stopFh = new FileHandler("stopwords.txt");
                     stopFh.removeFromfile(m);
-                    JOptionPane.showMessageDialog(frame1, "Stop words were removed");
                 }
                 else
                 {
@@ -166,12 +166,18 @@ public class GUI extends Component implements ActionListener {
             }
         });
 
-        //Shows stopwords file
+        //Opens stopwords.txt in the OS's default .txt application
         showWordButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent a) {
-
+                File sword = new File("stopwords.txt");
+                try {
+                    Desktop.getDesktop().open(sword);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(frame1,"Stopwords cannot be opened at this time");
+                }
             }
         });
 

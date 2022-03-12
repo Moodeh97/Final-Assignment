@@ -19,10 +19,8 @@ public class main {
 * Readme needs to be written
 * Main is DONE
 *
-* Specifically right now we're finishing the add words to stopwords
-* We're going to put the whole txt file into a string array and compare
-* that string against the words we're adding, we're using parsing to split
-* the txt file words into a string array and we'll have to do the same with the words
-* that we're trying to remove
+* Finished:
+* STOPWORDS ADD WORD
+*
 *
 * */
