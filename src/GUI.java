@@ -71,11 +71,11 @@ public class GUI extends Component implements ActionListener {
 
                 int returnVal = fc1.showOpenDialog(null);
                 File chosenfile1 = fc1.getSelectedFile();
-                FileHandler fh1 = new FileHandler(chosenfile1.getAbsolutePath());
-                label2.setText("File 1 is: " + chosenfile1.getName()+"\n");
-                Scanner myscan2 = fh1.openFile();
 
-            }
+                    FileHandler fh1 = new FileHandler(chosenfile1.getAbsolutePath());
+                    label2.setText("File 1 is: " + chosenfile1.getName() + "\n");
+                    Scanner myscan2 = fh1.openFile();
+                }
         });
 
         //Action listener for button 2, which chooses the second file and implements scanner 2
