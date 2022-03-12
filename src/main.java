@@ -12,11 +12,17 @@ public class main {
 }
 /*TO DO LIST / PICKUP LIST
 * How are we displaying results? In which class?
-* GUI needs to be cleaned up, maybe refactored, could delegate more functionality to fileComparison class?
+* GUI needs to be cleaned up, maybe code refactored, could delegate more functionality to fileComparison class?
 * Filehandler is done and just needs code clean, functionality solid
 * fileComparison needs the analysing driver code made /comments /cleaning
 * buffermaker needs to be made - Currently empty
 * Readme needs to be written
 * Main is DONE
+*
+* Specifically right now we're finishing the add words to stopwords
+* We're going to put the whole txt file into a string array and compare
+* that string against the words we're adding, we're using parsing to split
+* the txt file words into a string array and we'll have to do the same with the words
+* that we're trying to remove
 *
 * */
