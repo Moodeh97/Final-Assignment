@@ -9,14 +9,11 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.awt.Desktop;
 
-////////////////////////////////
-
-
 public class GUI extends Component implements ActionListener {
 
     //Class Attributes and instantiation of java swing frame
     JLabel label1,label2,label3;
-    JButton fileButton1,fileButton2,addWordButton, removeWordButton, showWordButton, compareButton;
+    JButton fileButton1,fileButton2,addWordButton, showWordButton, compareButton;
     JPanel panel1;
     String[] stopWords;
 
@@ -36,7 +33,6 @@ public class GUI extends Component implements ActionListener {
         JButton fileButton1 = new JButton("Choose File 1");
         JButton fileButton2 = new JButton("Choose File 2");
         JButton addWordButton = new JButton("Add stop words");
-        JButton removeWordButton = new JButton("Remove stop words");
         JButton showWordButton = new JButton("Show stop words");
         JButton compareButton = new JButton("Compare The Files");
 
@@ -71,7 +67,6 @@ public class GUI extends Component implements ActionListener {
         
         //Adding stopword buttons to panel
         panel1.add(addWordButton);
-        panel1.add(removeWordButton);
         panel1.add(showWordButton);
 
         //Methods
@@ -134,35 +129,24 @@ public class GUI extends Component implements ActionListener {
                 //If string isn't empty, send it to filehandler to add
                 if (m != null) {
                     FileHandler stopFh = new FileHandler("stopwords.txt");
-                    stopFh.writeFile(m, frame1);
-                    JOptionPane.showMessageDialog(frame1, "Stop words were added!");
+                    boolean addedOrNo = stopFh.writeFile(m); //boolean indicates if anything was added
+
+                    //If something was added display message
+                    if(addedOrNo) {
+                        JOptionPane.showMessageDialog(frame1, "These stop words were added!: "+m);
+                    }
+                    //If nothing was added display this message
+                    if(!addedOrNo){
+                        JOptionPane.showMessageDialog(frame1, "One of these words exists, please enter a new word");
+                    }
+
                 }
-                else //else tell user nothing was added
+
+                else //tell user nothing was added
                 {
                     JOptionPane.showMessageDialog(frame1, "No stop words were added!");
 
                 }
-            }
-        });
-
-        //Action listener for removing words from stopwords.txt
-        removeWordButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent a) {
-
-                String m = JOptionPane.showInputDialog("Enter stop words seperated by a space that you want to remove");
-
-                if(m != null) {
-                    FileHandler stopFh = new FileHandler("stopwords.txt");
-                    stopFh.removeFromfile(m);
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(frame1, "No stop words were removed!");
-                }
-
-
             }
         });
 

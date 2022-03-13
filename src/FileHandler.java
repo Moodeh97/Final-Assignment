@@ -38,7 +38,7 @@ public class FileHandler {
     }
 
     //Method to write to the stopwords file, also checks if the words being added already exist
-    public void writeFile(String toEnter, JFrame frame1) {
+    public boolean writeFile(String toEnter) {
         try {
             //Create buffer with nothing in it
             String buffer = "";
@@ -72,7 +72,7 @@ public class FileHandler {
             }
 
             if(!alreadyThere) {
-                System.out.println("We got into it");
+
                 //Create print writer
                 PrintWriter myWriter = new PrintWriter(new FileOutputStream("stopwords.txt", true));
 
@@ -83,42 +83,22 @@ public class FileHandler {
                 }
                 //Close input stream
                  myWriter.close();
+                return true;
             }
             else
             {
-                System.out.println("One of the words already exists ");
+                return false;
             }
         }
-
         catch (FileNotFoundException e)
         {//Catches the exception
             System.out.println("This was the error: " + e.getMessage());
             System.out.println("File wasn't found to write into");
-
+            return false;
         }
 
     }
-
-    //Method to write to or create a file
-    public void removeFromfile(String toRemove) {
-        try {
-            //Open File
-            File Fileright = new File("stopwords.txt");
-
-            //Create printwriter
-            PrintWriter mywriter = new PrintWriter(Fileright);
-
-            //Print job from parameter
-            //mywriter.(toRemove);
-
-            //Close input stream
-            mywriter.close();
-        } catch (FileNotFoundException e) {//Catches the exception
-            System.out.println("This was the error: " + e.getMessage());
-            System.out.println("File wasn't found to write into");
-
-        }
-
-    }
-
 }
+
+
+
