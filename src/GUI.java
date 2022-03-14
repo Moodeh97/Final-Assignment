@@ -3,20 +3,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import javax.swing.JOptionPane;
 import java.io.IOException;
 import java.util.Scanner;
 import java.awt.Desktop;
-import java.awt.FlowLayout;
 
 public class GUI extends JPanel implements ActionListener {
 
     //Class Attributes and instantiation of java swing frame
-    JLabel label1;
+    JLabel label2, label3;
     JButton fileButton1,fileButton2,addWordButton, showWordButton, compareButton;
-    JPanel panel1;
+    JPanel panel1,panel2,panel3;
     String[] stopWords;
 
     //creating scan objects for the two files
@@ -33,8 +31,6 @@ public class GUI extends JPanel implements ActionListener {
 
     public GUI() {
 
-        super(new GridLayout(1, 1));
-
         //Creating all buttons, panels, and the input box
         JButton fileButton1 = new JButton("Choose File 1");
         JButton fileButton2 = new JButton("Choose File 2");
@@ -44,10 +40,13 @@ public class GUI extends JPanel implements ActionListener {
 
         //Creating panel and label
         JPanel panel1 = new JPanel();
+            JPanel panel11 = new JPanel();
+            JPanel panel12 = new JPanel();
+
+
         JPanel panel2 = new JPanel();
         JPanel panel3 = new JPanel();
 
-        JLabel label1 = new JLabel();
         JLabel label2 = new JLabel();
         JLabel label3 = new JLabel();
 
@@ -61,25 +60,31 @@ public class GUI extends JPanel implements ActionListener {
         JFrame frame1 = new JFrame();
         frame1.setVisible(true); //Lets it be seen
         frame1.setTitle("File Comparison"); //Names the window
-        frame1.setSize(400, 100); //Sizes the window
+        frame1.setSize(450, 250); //Sizes the window
         frame1.setLocationRelativeTo(null); //Centres the window on the screen
         frame1.add(tp);
 
         //Adding file buttons to panel
-        panel1.add(fileButton1);
-        panel1.add(fileButton2);
-        panel1.add(compareButton);
-        panel1.add(label1);
-        panel1.add(label2);
-        panel1.add(label3);
-        panel1.setBorder(BorderFactory.createLineBorder(Color.black));
-        panel1.setLayout(new FlowLayout());
+        panel1.add(panel11);
+        panel1.add(panel12);
 
-        panel1.setVisible(true);
-        
+        panel11.add(fileButton1);
+        panel11.add(fileButton2);
+        panel12.add(compareButton);
+
+        panel11.setSize(100,100);
+        panel12.setSize(100,100);
+        panel11.add(label2);
+        panel11.add(label3);
+
+        panel1.setBorder(BorderFactory.createLineBorder(Color.black));
+        panel11.setBorder(BorderFactory.createLineBorder(Color.black));
+        panel12.setBorder(BorderFactory.createLineBorder(Color.black));
+
         //Adding stopword buttons to panel
         panel2.add(addWordButton);
         panel2.add(showWordButton);
+        panel2.setBorder(BorderFactory.createLineBorder(Color.black));
 
 
         ///////////////////////////////////////////////
