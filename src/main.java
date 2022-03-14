@@ -17,6 +17,7 @@ public class main {
 * fileComparison needs the analysing driver code made /comments /cleaning
 * buffermaker needs to be made - Currently empty
 * Readme needs to be written
+* Make a class that takes a string and a delimiter as arguments and returns a string array []
 *
 * Finished:
 * STOPWORDS ADD WORD

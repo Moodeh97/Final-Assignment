@@ -3,16 +3,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import javax.swing.JOptionPane;
 import java.io.IOException;
 import java.util.Scanner;
 import java.awt.Desktop;
+import java.awt.FlowLayout;
 
-public class GUI extends Component implements ActionListener {
+public class GUI extends JPanel implements ActionListener {
 
     //Class Attributes and instantiation of java swing frame
-    JLabel label1,label2,label3;
+    JLabel label1;
     JButton fileButton1,fileButton2,addWordButton, showWordButton, compareButton;
     JPanel panel1;
     String[] stopWords;
@@ -25,9 +27,13 @@ public class GUI extends Component implements ActionListener {
     JFileChooser fc1 = new JFileChooser();
     JFileChooser fc2 = new JFileChooser();
 
+    Icon icon = null;
+    JTabbedPane tabbedPane = new JTabbedPane();
 
 
     public GUI() {
+
+        super(new GridLayout(1, 1));
 
         //Creating all buttons, panels, and the input box
         JButton fileButton1 = new JButton("Choose File 1");
@@ -38,20 +44,26 @@ public class GUI extends Component implements ActionListener {
 
         //Creating panel and label
         JPanel panel1 = new JPanel();
+        JPanel panel2 = new JPanel();
+        JPanel panel3 = new JPanel();
+
         JLabel label1 = new JLabel();
         JLabel label2 = new JLabel();
         JLabel label3 = new JLabel();
 
-
+        JTabbedPane tp=new JTabbedPane();
+        tp.setBounds(50,50,200,200);
+        tp.add("Files",panel1);
+        tp.add("Stop Words",panel2);
+        tp.add("Results",panel3);
 
         //Creating a frame and setting Frame attributes
         JFrame frame1 = new JFrame();
         frame1.setVisible(true); //Lets it be seen
         frame1.setTitle("File Comparison"); //Names the window
-        frame1.setSize(500, 500); //Sizes the window
+        frame1.setSize(400, 100); //Sizes the window
         frame1.setLocationRelativeTo(null); //Centres the window on the screen
-        frame1.add(panel1);
-
+        frame1.add(tp);
 
         //Adding file buttons to panel
         panel1.add(fileButton1);
@@ -60,17 +72,20 @@ public class GUI extends Component implements ActionListener {
         panel1.add(label1);
         panel1.add(label2);
         panel1.add(label3);
-
-
+        panel1.setBorder(BorderFactory.createLineBorder(Color.black));
+        panel1.setLayout(new FlowLayout());
 
         panel1.setVisible(true);
         
         //Adding stopword buttons to panel
-        panel1.add(addWordButton);
-        panel1.add(showWordButton);
+        panel2.add(addWordButton);
+        panel2.add(showWordButton);
 
-        //Methods
 
+        ///////////////////////////////////////////////
+        //////////////////////////////////////////////
+
+        //From here I implement the action listeners for all buttons (there's 5 buttons)
         //Action listener for button 1, which chooses the first file and implements scanner 1
         fileButton1.addActionListener(new ActionListener() {
 
@@ -137,7 +152,7 @@ public class GUI extends Component implements ActionListener {
                     }
                     //If nothing was added display this message
                     if(!addedOrNo){
-                        JOptionPane.showMessageDialog(frame1, "One of these words exists, please enter a new word");
+                        JOptionPane.showMessageDialog(frame1, "One of these words exists, please enter new words");
                     }
 
                 }

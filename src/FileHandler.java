@@ -9,10 +9,13 @@ import java.util.regex.Pattern;
 public class FileHandler {
     //Attributes
     String Filename; //Globally Accessible Variable
-    File myFile;
     String buffer;
     String[] stopWordArray;
     String[] wordsToAdd;
+
+    File myFile;
+    stringToArrayMaker converter = new stringToArrayMaker();
+
     int j;
     boolean alreadyThere;
 
@@ -53,12 +56,11 @@ public class FileHandler {
                 buffer = buffer.concat(" " + fileScan.next());
             }
 
-            //using whitespace as a delimiter
-            Pattern ptr = Pattern.compile(" ");
 
-            //storing the buffer string elements in array after splitting
-            stopWordArray = ptr.split(buffer);
-            wordsToAdd = ptr.split(toEnter);
+
+            //passing buffer and to enter to a converter class to return as a string array
+            stopWordArray = converter.returnArray(buffer," ");
+            wordsToAdd = converter.returnArray(toEnter," ");
 
             //Check that the words arent already in the file
             for (int i = 0; i < stopWordArray.length - 1; i++) {

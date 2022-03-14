@@ -16,24 +16,5 @@ public class fileComparison{
         this.stopWords = stopWords;
 
     }
-    //This method obtains 2 buffers from buffermaker class, and then begins analysing it
-    public void comparfile() {
-        Pattern ptr = Pattern.compile(" ");
-
-        //.next returns a string of the line from a file
-        //patter split parses through the line using whitespace as delimiter
-        //puts it into buffer
-
-        buffer = ptr.split(myScanner1.next());
-
-        //Checking Buffer
-        for (String s : buffer) {
-            System.out.println(s);
-        }
-    }
-
-    public void analyse(){
-
-    }
 
 }
