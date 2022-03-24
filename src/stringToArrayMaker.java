@@ -1,6 +1,6 @@
 import java.util.regex.Pattern;
 
-//This class contains the repeated logic to convert a string to an array of the words within it
+//This class contains the  logic to convert a string to an array of the words within the string
 //It takes a string and its delimiter
 
 public class stringToArrayMaker {

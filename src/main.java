@@ -1,4 +1,6 @@
 import javax.swing.*;
+
+
 public class main {
     public static void main(String[] arg) throws Exception{
 
@@ -11,11 +13,9 @@ public class main {
     }
 }
 /*TO DO LIST / PICKUP LIST
-* How are we displaying results? In which class?
 * GUI needs to be cleaned up, maybe code refactored, could delegate more functionality to fileComparison class?
-* Filehandler is done and just needs code clean, functionality solid
+* Filehandler needs code clean,
 * fileComparison needs the analysing driver code made /comments /cleaning
-* buffermaker needs to be made - Currently empty
 * Readme needs to be written
 *
 *

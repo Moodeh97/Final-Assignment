@@ -2,11 +2,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import java.util.HashMap;
 
 public class fileComparison{
 
-    String[] buffer = null;
-    String[] repWords = null;
+    HashMap<String, Integer> comparWords = new HashMap<String, Integer>();
     Scanner myScanner1, myScanner2;
     String[] stopWords;
 

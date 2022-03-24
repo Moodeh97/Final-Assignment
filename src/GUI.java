@@ -12,18 +12,20 @@ import java.awt.Desktop;
 public class GUI extends JPanel implements ActionListener {
 
     //Class Attributes and instantiation of java swing frame
-    JLabel label2, label3;
-    JButton fileButton1,fileButton2,addWordButton, showWordButton, compareButton;
+    JLabel label2, label3, label4, labelPanel;
+    JButton fileButton1,fileButton2,fileButton3, addWordButton, showWordButton, compareButton;
     JPanel panel1,panel2,panel3;
     String[] stopWords;
 
     //creating scan objects for the two files
     Scanner myscan1 = null;
     Scanner myscan2 = null;
+    Scanner myscan3 = null;
 
     //Instantiation of file choosers so the GUI can use a browser
     JFileChooser fc1 = new JFileChooser();
     JFileChooser fc2 = new JFileChooser();
+    JFileChooser fc3 = new JFileChooser();
 
     Icon icon = null;
     JTabbedPane tabbedPane = new JTabbedPane();
@@ -34,21 +36,26 @@ public class GUI extends JPanel implements ActionListener {
         //Creating all buttons, panels, and the input box
         JButton fileButton1 = new JButton("Choose File 1");
         JButton fileButton2 = new JButton("Choose File 2");
+        JButton fileButton3 = new JButton("Choose File 3");
+
         JButton addWordButton = new JButton("Add stop words");
         JButton showWordButton = new JButton("Show stop words");
         JButton compareButton = new JButton("Compare The Files");
+        JButton removeResults = new JButton("Wipe all Results");
 
         //Creating panel and label
         JPanel panel1 = new JPanel();
             JPanel panel11 = new JPanel();
             JPanel panel12 = new JPanel();
+            JPanel labelPanel = new JPanel();
 
 
         JPanel panel2 = new JPanel();
         JPanel panel3 = new JPanel();
 
-        JLabel label2 = new JLabel();
-        JLabel label3 = new JLabel();
+        JLabel label2 = new JLabel("No File Selected");
+        JLabel label3 = new JLabel("No File Selected");
+        JLabel label4 = new JLabel("No File Selected");
 
         JTabbedPane tp=new JTabbedPane();
         tp.setBounds(50,50,200,200);
@@ -67,30 +74,36 @@ public class GUI extends JPanel implements ActionListener {
         //Adding file buttons to panel
         panel1.add(panel11);
         panel1.add(panel12);
+        panel1.add(labelPanel);
 
         panel11.add(fileButton1);
         panel11.add(fileButton2);
+        panel11.add(fileButton3);
+
         panel12.add(compareButton);
 
         panel11.setSize(100,100);
         panel12.setSize(100,100);
-        panel11.add(label2);
-        panel11.add(label3);
+        labelPanel.add(label2);
+        labelPanel.add(label3);
+        labelPanel.add(label4);
 
         panel1.setBorder(BorderFactory.createLineBorder(Color.black));
         panel11.setBorder(BorderFactory.createLineBorder(Color.black));
         panel12.setBorder(BorderFactory.createLineBorder(Color.black));
+        labelPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 
         //Adding stopword buttons to panel
         panel2.add(addWordButton);
         panel2.add(showWordButton);
         panel2.setBorder(BorderFactory.createLineBorder(Color.black));
 
-
+        panel3.add(removeResults);
         ///////////////////////////////////////////////
         //////////////////////////////////////////////
 
-        //From here I implement the action listeners for all buttons (there's 5 buttons)
+        //From here I implement the action listeners for all buttons
+
         //Action listener for button 1, which chooses the first file and implements scanner 1
         fileButton1.addActionListener(new ActionListener() {
 
@@ -127,6 +140,22 @@ public class GUI extends JPanel implements ActionListener {
             }
         });
 
+        fileButton3.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent a) {
+
+                int returnVal = fc3.showOpenDialog(frame1);
+                File chosenfile3 = fc3.getSelectedFile();
+
+                if(chosenfile3 != null) {
+                    FileHandler fh1 = new FileHandler(chosenfile3.getAbsolutePath());
+                    label4.setText("File 3 is: " + chosenfile3.getName() + "\n");
+                    Scanner myscan3 = fh1.openFile();
+                }
+
+            }
+        });
         //Actually calls comparison and files etc
         compareButton.addActionListener(new ActionListener() {
 
