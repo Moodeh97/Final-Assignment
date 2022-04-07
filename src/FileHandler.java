@@ -31,7 +31,6 @@ public class FileHandler {
         Scanner myScan = null;
         try {
             myScan = new Scanner(myFile);
-            System.out.println("Scanner Sucessfully Instantiated\n");
         } catch (FileNotFoundException e) {
             System.out.println("File wasn't opened");
         }
@@ -63,8 +62,8 @@ public class FileHandler {
             //Check that the words arent already in the file
             for (int i = 0; i < stopWordArray.length - 1; i++) {
 
-                for(int j = 0; j < wordsToAdd.length;j++) {
-                    if (stopWordArray[i].equals(wordsToAdd[j])) {
+                for (String s : wordsToAdd) {
+                    if (stopWordArray[i].equals(s)) {
                         alreadyThere = true;
                         break;
                     }
@@ -77,9 +76,8 @@ public class FileHandler {
                 PrintWriter myWriter = new PrintWriter(new FileOutputStream("stopwords.txt", true));
 
                 //append it
-                for(int i = 0; i < wordsToAdd.length; i++)
-                {
-                    myWriter.println(wordsToAdd[i] + "");
+                for (String s : wordsToAdd) {
+                    myWriter.println(s + "");
                 }
                 //Close input stream
                  myWriter.close();

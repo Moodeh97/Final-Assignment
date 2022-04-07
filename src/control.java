@@ -1,14 +1,14 @@
 import javax.swing.*;
 
 
-public class main {
+public class control {
     public static void main(String[] arg) throws Exception{
 
         //Using UI manager and LookAndFeel to change swing to look like the host OS
         //Normal Swing looks 2010 at best, this is somewhat better
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-        //Creating GUI
+        //Driving Object
         GUI GUIdriver = new GUI();
     }
 }
