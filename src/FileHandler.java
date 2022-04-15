@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class FileHandler {
@@ -22,7 +23,7 @@ public class FileHandler {
         this.Filename = Filename;
     }
 
-    //Methods / Behaviour
+    //Methods
 
     //Method to just create a file object for use in other methods
     public Scanner openFile() {
@@ -35,6 +36,56 @@ public class FileHandler {
             System.out.println("File wasn't opened");
         }
         return myScan;
+    }
+
+    //Method to check if a word is in the stopwords file already
+    public boolean checkStop(String toCheck){
+        try {
+            alreadyThere = false;
+            ;
+            //Create buffer with nothing in it
+            String buffer = "";
+
+            //Open File and create scanner
+            File Fileright = new File("stopwords.txt");
+            Scanner fileScan = new Scanner(Fileright);
+
+
+            //Add list of words from .txt to the buffer string
+            while (fileScan.hasNext()) {
+                buffer = buffer.concat(" " + fileScan.next());
+            }
+
+
+
+            //passing buffer and to enter to a converter class to return as a string array
+            stopWordArray = converter.returnArray(buffer," ");
+
+            //Check that the words arent already in the file
+            for (int i = 0; i < stopWordArray.length - 1; i++) {
+
+                if (Objects.equals(toCheck, stopWordArray[i])) {
+                    alreadyThere = true;
+                }
+            }
+
+            if(alreadyThere) {
+                return true;
+                //If the word is IN STOPWORDS, RETURN TRUE
+            }
+            else
+            {
+                return false;
+                //If the word is NOT IN STOPWORDS, RETURN FALSE
+
+            }
+        }
+        catch (FileNotFoundException e)
+        {//Catches the exception
+            System.out.println("This was the error: " + e.getMessage());
+            System.out.println("File wasn't found to write into");
+            return false;
+        }
     }
 
     //Method to write to the stopwords file, also checks if the words being added already exist
