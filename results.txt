@@ -1,4 +1,4 @@
-This percentage of words are overlapping words out of all words: 21.43
 There is this many (non-stopword) words  in both files: 196.0
-There is this many (non-stopword) words common to both files: 42.0
-The Files are NOT similar at all
+Therfore out of all words in both files, this many overlapping words there are: 42.0
+So the percentage similarity they share is: 21.43
+Finally: The Files are not similar at all

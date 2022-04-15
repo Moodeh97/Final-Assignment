@@ -18,29 +18,46 @@ import javax.swing.JFrame;
 import java.util.HashMap;
 public class GUI extends JFrame implements ActionListener {
 
-    //Class Attributes and instantiation of java swing frame
-    JLabel label2, label3;
+
+/* METHODS
+
+
+    GUI
+        Dives the UI
+                Parameters:
+                         None
+*/
+
+/* ATTRIBUTES
+
+        String pathname1 / pathname2 - hold the pathnames for the two files to be compare
+        String stopwords - holds the words to be added to the stopwords file
+
+*/
+
+    //Creating the various buttons used in UI
     JButton addFile1,addFile2, clearfiles, addWordButton, showWordButton, compareButton, removeResults, openResults;
+
+    //Creating the panels needed for the tab system
     JPanel panel1,panel2,panel3;
+
+    //a string to gather the words that the user wants to add to stopwords file
     String[] stopWords;
 
-    ArrayList<File> files = new ArrayList<File>();
-
-    //creating scan objects for the two files
+    //Create strings to hold the filenames
     String pathname1 = null;
     String pathname2 = null;
 
-    //Instantiation of file choosers so the GUI can use a browser
-
+    //Instantiation of file chooser so the GUI can use a browser
     JFileChooser fc1 = new JFileChooser();
 
-    Icon icon = null;
+    //Create the tab object
     JTabbedPane tabbedPane = new JTabbedPane();
 
 
     public GUI() {
 
-        //Creating all buttons, panels, and the input box
+        //Creating all objects: buttons, panels, textarea,
 
         //Buttons in first tab
         JButton addFile1 = new JButton("Choose file 1");
@@ -61,6 +78,7 @@ public class GUI extends JFrame implements ActionListener {
         JPanel panel2 = new JPanel();
         JPanel panel3 = new JPanel();
 
+        //Textarea in first tab
         JTextArea Area1 = new JTextArea("The Files are:");
         Area1.setWrapStyleWord(true);
         Area1.setLineWrap(true);
@@ -100,65 +118,89 @@ public class GUI extends JFrame implements ActionListener {
         /*
         * From here I set up action buttons for all buttons in all three tabs
         * There are 8 separate buttons I implement an action for
-        * Addfile1:
-        */
+        *
+        * Addfile1: At core just gathers file path to be passed as parameter later
+        *
+        * Addfile1: At core just gathers file path to be passed as parameter later
+        *
+        * clearfiles: clears the chosen files so far and removes the text from the text area
+        * allowing you to choose different files
+        *
+        * Comparebutton: calls the class comparer which actually processes the files
+        *
+        * addwordbutton: this button calls the file handler class and passes some words
+        * as a parameter through a string
+        *
+        * showWordButton: a simple button which opens the stopwords.txt file in the OS's
+        * default .txt file application
+        *
+        * removeresults: This button wipes all results from the text file in which they are stored
+        * This is permanent
+        *
+        * openresults: a simple button which opens the results.txt file in the OS's
+         * default .txt file application
+         */
 
-        //Action listener for add file 1
+        //Action listener for addFile1
         addFile1.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent a) {
 
-                if(pathname1 == null){
-                    int returnVal = fc1.showOpenDialog(frame1);
-                    File chosenfile1 = fc1.getSelectedFile();
-                    pathname1 = chosenfile1.getPath();
-                    Area1.append("\n" + chosenfile1.getName());
+                if(pathname1 == null){ //if no file chosen so far
+                    int returnVal = fc1.showOpenDialog(frame1); //open file browser
+                    File chosenfile1 = fc1.getSelectedFile(); //Sets file object to file they choose
+                    pathname1 = chosenfile1.getPath(); //Takes pathname from file
+                    Area1.append("\n" + chosenfile1.getName()); //Shows what file was chosen
                 }
-                else{JOptionPane.showMessageDialog(frame1,"This file has been chosen already");}
+                else{JOptionPane.showMessageDialog(frame1,"This file has been chosen already");} //If file already chosen then cannot be overwritten yet
             }
 
         });
 
-        //Action listener for add file 2
+        //Action listener for addFile2
         addFile2.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent a) {
-                if(pathname2 == null) {
-                    int returnVal = fc1.showOpenDialog(frame1);
-                    File chosenfile2 = fc1.getSelectedFile();
-                    pathname2 = chosenfile2.getPath();
-                    Area1.append("\n" + chosenfile2.getName());
+                if(pathname2 == null) {//if no file chosen so far
+                    int returnVal = fc1.showOpenDialog(frame1);//open file browser
+                    File chosenfile2 = fc1.getSelectedFile();//Sets file object to file they choose
+                    pathname2 = chosenfile2.getPath();//Takes pathname from file
+                    Area1.append("\n" + chosenfile2.getName()); //Shows what file was chosen
                 }
-                else{JOptionPane.showMessageDialog(frame1,"This file has been chosen already");}
+                else{JOptionPane.showMessageDialog(frame1,"This file has been chosen already");}//If file already chosen then cannot be overwritten yet
             }
 
         });
 
 
-        //Actually calls comparison class
+        //Calls comaparer class (after error checking) which
+        //actually compares the two files chosen by the user
         compareButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent a) {
 
-                if(pathname1 != null && pathname2 != null) {
+                if(pathname1 != null && pathname2 != null) { //If both files have been picekd
                     comparer thisCompares = null;
-                    try {
-                        thisCompares = new comparer(pathname1, pathname2);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
+
+                    //Try create comparer object
+                    try {thisCompares = new comparer(pathname1, pathname2);}
+                    catch (FileNotFoundException e) {e.printStackTrace();
                     }
+
+                    //Use method results in comparer class
                     assert thisCompares != null;
                     try {
                         thisCompares.results();
+                        thisCompares.writeToFile();
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
                 }
                 else{
-                    JOptionPane.showMessageDialog(frame1,"You have not selected both files");
+                    JOptionPane.showMessageDialog(frame1,"You have not selected both files"); //Else if both files not chosen
                 }
             }
         });
@@ -169,6 +211,7 @@ public class GUI extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent a) {
 
+                //Getting the input from usewr
                 String m = " ";
                 m = JOptionPane.showInputDialog("Enter stop words separated by a space");
 
@@ -202,7 +245,10 @@ public class GUI extends JFrame implements ActionListener {
 
             @Override
             public void actionPerformed(ActionEvent a) {
+                //Create file object
                 File sword = new File("stopwords.txt");
+
+                //Try open file
                 try {
                     Desktop.getDesktop().open(sword);
                 } catch (IOException e) {
@@ -211,19 +257,24 @@ public class GUI extends JFrame implements ActionListener {
                 }
             }
         });
+
         //Clears the results file
         removeResults.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent a) {
-                File fileToClear = new File("C:\\Users\\daram\\OneDrive - Technological University Dublin\\Computer Science Year 2\\Semester 2\\OOP Java\\Labs\\Final Assignment\\results.txt");
+
+                //new file object with results txt file
+                File fileToClear = new File("results.txt");
                 PrintWriter writer = null;
                 try {
-                    writer = new PrintWriter(fileToClear);
+                    writer = new PrintWriter(fileToClear); //create printwriter
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
                 assert writer != null;
+
+                //Print null to the txt file and cl;ose
                 writer.print("");
                 writer.close();
             }
@@ -233,7 +284,11 @@ public class GUI extends JFrame implements ActionListener {
 
             @Override
             public void actionPerformed(ActionEvent a) {
+
+                //Create file object
                 File sword = new File("results.txt");
+
+                //Try open file
                 try {
                     Desktop.getDesktop().open(sword);
                 } catch (IOException e) {
@@ -242,20 +297,21 @@ public class GUI extends JFrame implements ActionListener {
                 }
             }
         });
+
         //Clears files and area
         clearfiles.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent a) {
 
+                //Removes text from tab 1
+                //sets pathnames to null
                 Area1.setText("The Files are:");
                 pathname1 = null;
                 pathname2 = null;
             }
         });
     }
-
-
 
     @Override
     public void actionPerformed(ActionEvent e) {

@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-
+//Main class
 public class control {
     public static void main(String[] arg) throws Exception{
 
@@ -8,16 +8,7 @@ public class control {
         //Normal Swing looks 2010 at best, this is somewhat better
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-        //Driving Object
+        //Driving the UI
         GUI GUIdriver = new GUI();
     }
 }
-/*TO DO LIST / PICKUP LIST
-*
-*
-* Finished:
-* STOPWORDS ADD WORD
-* STOPWORDS SHOW FILE
-* STRINGTOARRAYMAKER
-* MAIN
-* */

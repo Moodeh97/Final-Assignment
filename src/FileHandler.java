@@ -6,37 +6,56 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class FileHandler {
-    //Attributes
-    String Filename; //Globally Accessible Variable
+
+    /* METHODS
+
+
+    Filehandler
+        sets globally accessible String variable Filename from parameter input
+            Parameters:
+                        String Filename - String parameter
+
+    checkStop
+        Checks if the string parameter inputted is present in the stopwords.txt file
+            Parameters:
+                        String toCheck - the word that is to be checked against the file
+
+    writeFile
+        A method to write a stopword to the stopwords.txt file
+            Parameters:
+                        String toEnter - a string of all the words to be entered into the file
+*/
+
+/* ATTRIBUTES
+
+    String Filename - set in the constructor to be used by various methods
+
+    String buffer - used in method writeFile as a way of gathering all words in stopwords.txt into one variable
+
+    String[] stopWordArray - String buffer is converted to this array with class stringToArrayMaker
+
+    String[] wordsToAdd - String toEnter is converted into this array with class stringToArrayMaker
+
+    boolean alreadyThere - this bool holds the switch for whether or not the word being checked/inputted
+                            already exists in the stopword file
+*/
+
+    //String attributes
+    String Filename;
     String buffer;
     String[] stopWordArray;
     String[] wordsToAdd;
 
+    //declaring these variables so they can be used
     File myFile;
     stringToArrayMaker converter = new stringToArrayMaker();
 
-    int j;
     boolean alreadyThere;
 
-    //constructors
+    //constructor
     public FileHandler(String Filename) {
         this.Filename = Filename;
-    }
-
-    //Methods
-
-    //Method to just create a file object for use in other methods
-    public Scanner openFile() {
-        myFile = new File(Filename);
-
-        Scanner myScan = null;
-        try {
-            myScan = new Scanner(myFile);
-        } catch (FileNotFoundException e) {
-            System.out.println("File wasn't opened");
-        }
-        return myScan;
-    }
+    };
 
     //Method to check if a word is in the stopwords file already
     public boolean checkStop(String toCheck){
@@ -121,6 +140,7 @@ public class FileHandler {
                 }
             }
 
+            //If the words are not in stopwords, add them
             if(!alreadyThere) {
 
                 //Create print writer
@@ -134,6 +154,8 @@ public class FileHandler {
                  myWriter.close();
                 return true;
             }
+
+            //Else return that nothing was added
             else
             {
                 return false;
