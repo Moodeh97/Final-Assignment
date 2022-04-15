@@ -13,10 +13,6 @@ public class control {
     }
 }
 /*TO DO LIST / PICKUP LIST
-* GUI needs to be cleaned up, maybe code refactored, could delegate more functionality to fileComparison class?
-* Filehandler needs code clean,
-* fileComparison needs the analysing driver code made /comments /cleaning
-* Readme needs to be written
 *
 *
 * Finished:
